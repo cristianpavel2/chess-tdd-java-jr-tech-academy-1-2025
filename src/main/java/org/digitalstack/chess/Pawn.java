@@ -44,7 +44,30 @@ public class Pawn {
     }
 
     public void move(MovementType movementType, int newX, int newY) {
-        throw new UnsupportedOperationException("Need to implement Pawn.move()") ;
+        if (chessBoard == null) {
+            return;
+        }
+
+        if (!chessBoard.isLegalBoardPosition(newX, newY)) {
+            return;
+        }
+
+        // Pawns can only move forward (decreasing Y for BLACK, increasing Y for WHITE)
+        if (movementType == MovementType.MOVE) {
+            if (pieceColor == PieceColor.BLACK) {
+                // Black pawns move down (decreasing Y)
+                if (newX == xCoordinate && newY == yCoordinate - 1) {
+                    xCoordinate = newX;
+                    yCoordinate = newY;
+                }
+            } else {
+                // White pawns move up (increasing Y)
+                if (newX == xCoordinate && newY == yCoordinate + 1) {
+                    xCoordinate = newX;
+                    yCoordinate += newY;
+                }
+            }
+        }
     }
 
     @Override
